@@ -3,4 +3,6 @@ project(minishell C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(minishell main.c minishell.h)
+FILE(GLOB LIBFT libft/*.c)
+add_executable(minishell minishell.h ${LIBFT}
+        echo.c main.c)

@@ -73,4 +73,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst);
 
+// UTILS
+size_t	max(size_t a, size_t b);
+size_t	min(size_t a, size_t b);
+void	ft_putnstr(char *str, int n);
+
 #endif

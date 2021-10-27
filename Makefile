@@ -1,21 +1,17 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=
 
 NAME = minishell
 
-
 INC = .
-SRCS_DIR = ./source/
+SRCS_DIR = ./sources/
 OBJS_DIR = ./objects/
+
+LIB_DIR = ./libft/
+LIBFT = ${LIB_DIR}libft.a
 
 SRCS = echo.c
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-
-
-# LIBFT CONFIG
-LIB_DIR = ./libft/
-LIBFT = libft/libft.a
-# LIBFT CONFIG
 
 
 all: ${NAME}
@@ -23,15 +19,16 @@ all: ${NAME}
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
-$(OBJS_DIR)%.o:$(SRCS_DIR)%.c
-	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -c $< -o $@
-
-${NAME}: $(OBJS_DIR) $(OBJS) ${LIBFT}
-	@$(CC) ${CFLAGS} ${LIBFT} ${OBJS} -I$(LIB_DIR) main.c -o ${NAME}
-	@printf '\033[1;32m${NAME} compile success!\n\033[0m'
-
 ${LIBFT}:
 	@make -C $(LIB_DIR)
+
+$(OBJS_DIR)%.o:$(SRCS_DIR)%.c
+	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -c $< -o $@
+	@printf "\033[0;33mObject %-20.20s [\033[0;32m✔\033[0;33m]\r" $@
+
+${NAME}: $(OBJS_DIR) $(OBJS) $(SRCS_DIR)$(SRCS) ${LIBFT}
+	@$(CC) ${CFLAGS} ${LIBFT} ${OBJS} -I$(LIB_DIR) main.c -o ${NAME}
+	@printf '\033[1;32m%-40.40s\n\033[0m' '${NAME} compile success!'
 
 clean:
 	@rm -rf $(BUILDDIR)

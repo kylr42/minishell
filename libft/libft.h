@@ -18,7 +18,7 @@
 
 typedef struct s_list
 {
-	int				content;
+	char            *content;
 	struct s_list	*next;
 }	t_list;
 
@@ -64,7 +64,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_lstsize(t_list *lst);
 
 t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(int content);
+t_list	*ft_lstnew(char *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 void	ft_lstadd_back(t_list **lst, t_list *new);

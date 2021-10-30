@@ -1,14 +1,14 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int		echo(char **str)
 {
-	int i;
-	t_bool display_return;
+	int     i;
+	bool    display_return;
 
 	i = 0;
 	display_return = true;
 	if (!str || !*str)
-		return write(1, "\n", 1);
+		return ((int) write(1, "\n", 1));
 	else if (!ft_strncmp(*str, "-n", 100))
 		display_return = false;
 	else

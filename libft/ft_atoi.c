@@ -7,6 +7,8 @@ int	ft_atoi(const char *str)
 
 	neg = 1;
 	num = 0;
+	if (!str)
+        return (0);
 	if (*str == '-' || *str == '+')
 		if (*str++ == '-')
 			neg = -1;

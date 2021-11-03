@@ -8,4 +8,4 @@ FILE(GLOB LIBFT libft/*.c)
 FILE(GLOB SOURCE sources/*.c)
 
 
-add_executable(minishell minishell.h ${LIBFT} ${SOURCE} main.c )
+add_executable(minishell minishell.h ${LIBFT} ${SOURCE} main.c sources/ft_errors.c sources/ft_parser_utils.c)

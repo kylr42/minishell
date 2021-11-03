@@ -8,7 +8,7 @@ int ft_check_expand(char **str)
 
     result = history_expand(*str, &expansion);
     if (result)
-        ft_putendl_fd(expansion, 2);
+        ft_putendl_fd(expansion, 1);
     if (result < 0 || result == 2)
     {
         free(expansion);

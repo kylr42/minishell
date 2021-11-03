@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-lreadline -L ~/.brew/opt/readline/lib
+CFLAGS=-Wall -Wextra -Werror
 
 NAME = minishell
 
@@ -10,7 +10,7 @@ OBJS_DIR = ./objects/
 LIB_DIR = ./libft/
 LIBFT = ${LIB_DIR}libft.a
 
-SRCS_FILES = ft_lst.c echo.c init.c loop.c parser.c
+SRCS_FILES = ft_lst.c echo.c init.c loop.c parser.c ft_parser_utils.c ft_errors.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS))
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
 
@@ -28,8 +28,8 @@ $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
 	@printf "\033[0;33mObject %-40.100s [\033[0;32m✔\033[0;33m]\r" $@
 
 ${NAME}: $(OBJS_DIR) $(OBJS) $(LIBFT)
-	@$(CC) ${CFLAGS} ${LIBFT} ${OBJS} -I$(LIB_DIR) main.c -o ${NAME}
-	@printf '\033[1;32m%-40.40s\n\033[0m' '${NAME} compile success!'
+	@$(CC) ${CFLAGS} ${LIBFT} -I$(LIB_DIR) ${OBJS} -lreadline -L ~/.brew/opt/readline/lib main.c -o ${NAME}
+	@printf '\033[1;32m%-100.100s\n\033[0m' '${NAME} compile success!'
 
 clean:
 	@rm -rf $(BUILDDIR)

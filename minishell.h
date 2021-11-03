@@ -38,6 +38,12 @@
 
 # define BUIL_CMD   "exit:echo:export:unset:env:cd:pwd"
 
+# define ERR_PIPE	"shell: Syntax error near unexpected token '|'"
+# define ERR_NEWL	"shell: Syntax error near newline"
+# define ERR_MLC    "Er.: Cannot allocate memory"
+# define ERR_TKN	"shell: syntax error near unexpected token: "
+
+
 
 typedef struct s_cmd
 {
@@ -66,12 +72,15 @@ typedef struct s_shell
 
 int		echo(char **str);
 int     ft_loop(t_shell *shell);
+int     ft_skip_gap(const char *str);
 int     ft_parser(t_shell *shell, char *str);
+int     ft_raise_error(char *error, int code);
 
 char    **ft_lst_to_array(t_list *lst);
 
 void    *ft_allocate(size_t size);
 void    ft_init(t_shell *shell, char *envp[]);
+
 
 
 #endif //MINISHELL_H

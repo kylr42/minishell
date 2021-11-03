@@ -7,7 +7,7 @@ void *ft_allocate(size_t size)
     arr = malloc(size);
     if (arr)
         return (arr);
-    ft_putendl_fd(RED"Er.: Cannot allocate memory"RESET, 2);
+    ft_raise_error(ERR_MLC, 1);
     exit(errno);
 }
 

@@ -33,12 +33,12 @@ all: ${NAME}
 
 .c.o: ${SRCS}
 	@$(CC) $(CFLAGS) -o $@ -c $<
-	@printf "\033[0;34mObject %-20.20s [\033[0;32m✔\033[0;34m]\r" $@
+	@printf "\033[0;34mObject %-50.100s [\033[0;32m✔\033[0;34m]\r" $@
 
 ${NAME}: ${OBJS} ${DEPS} ${BONUS_OBJS}
 	@ar -rc ${NAME} ${OBJS} ${BONUS_OBJS}
 	@ranlib ${NAME}
-	@printf '\033[1;32m%-40.40s\n\033[0m' 'Libft compile success!'
+	@printf '\033[1;32m%-100.100s\n\033[0m' 'Libft compile success!'
 
 clean:
 	@rm -rf $(OBJS) ${BONUS_OBJS}

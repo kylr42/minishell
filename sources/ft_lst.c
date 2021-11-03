@@ -1,5 +1,4 @@
 #include "../minishell.h"
-#include <sys/errno.h>
 
 void *ft_allocate(size_t size)
 {

@@ -24,8 +24,9 @@ void ft_init(t_shell *shell, char *envp[])
     shell->env = NULL;
     shell->cmd = NULL;
     shell->env = NULL;
+    gethostname(shell->hostname, 6);
     shell->ps = ft_allocate(100);
     shell->buil_cmd = ft_split(BUIL_CMD, ':');
-    sprintf(shell->ps, GRN"%s@%s:-$ "RESET, getenv("USER"), getenv("HOSTNAME"));
+    sprintf(shell->ps, GRN"%s@%s:-$ "RESET, getenv("USER"), shell->hostname);
     ft_init_env(shell, envp);
 }

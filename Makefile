@@ -10,7 +10,7 @@ OBJS_DIR = ./objects/
 LIB_DIR = ./libft/
 LIBFT = ${LIB_DIR}libft.a
 
-SRCS_FILES = echo.c loop.c init.c ft_lst.c
+SRCS_FILES = ft_lst.c echo.c init.c loop.c parser.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS))
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
 
@@ -25,7 +25,7 @@ ${LIBFT}:
 
 $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -c $< -o $@
-	@printf "\033[0;33mObject %-20.20s [\033[0;32m✔\033[0;33m]\r" $@
+	@printf "\033[0;33mObject %-40.100s [\033[0;32m✔\033[0;33m]\r" $@
 
 ${NAME}: $(OBJS_DIR) $(OBJS) $(LIBFT)
 	@$(CC) ${CFLAGS} ${LIBFT} ${OBJS} -I$(LIB_DIR) main.c -o ${NAME}

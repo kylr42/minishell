@@ -59,14 +59,18 @@ typedef struct s_shell
     t_list  *env;
     char    **arr_env;
     char    **buil_cmd;
-
+    char    hostname[7];
+    int     count_pipes;
 }	t_shell;
 
 
 int		echo(char **str);
 int     ft_loop(t_shell *shell);
-void    *ft_allocate(size_t size);
+int     ft_parser(t_shell *shell, char *str);
+
 char    **ft_lst_to_array(t_list *lst);
+
+void    *ft_allocate(size_t size);
 void    ft_init(t_shell *shell, char *envp[]);
 
 

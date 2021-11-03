@@ -1,5 +1,6 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror
+RFLAGS= -lreadline -L ~/.brew/opt/readline/lib
 
 NAME = minishell
 
@@ -27,8 +28,8 @@ $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -c $< -o $@
 	@printf "\033[0;33mObject %-40.100s [\033[0;32m✔\033[0;33m]\r" $@
 
-${NAME}: $(OBJS_DIR) $(OBJS) $(LIBFT)
-	@$(CC) ${CFLAGS} ${LIBFT} -I$(LIB_DIR) ${OBJS} -lreadline -L ~/.brew/opt/readline/lib main.c -o ${NAME}
+${NAME}: $(LIBFT) $(OBJS_DIR) $(OBJS)
+	@$(CC) ${CFLAGS} ${LIBFT} -I$(LIB_DIR) $(RFLAGS) ${OBJS} main.c -o ${NAME}
 	@printf '\033[1;32m%-100.100s\n\033[0m' '${NAME} compile success!'
 
 clean:

@@ -40,9 +40,8 @@
 
 # define ERR_PIPE	"shell: Syntax error near unexpected token '|'"
 # define ERR_NEWL	"shell: Syntax error near newline"
-# define ERR_MLC    "Er.: Cannot allocate memory"
+# define ERR_MLC    "shell: Cannot allocate memory"
 # define ERR_TKN	"shell: syntax error near unexpected token: "
-
 
 
 typedef struct s_cmd

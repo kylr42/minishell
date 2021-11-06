@@ -6,6 +6,7 @@ void	ft_lstclear(t_list **lst)
 		return ;
 	if ((*lst)->next)
 		ft_lstclear(&(*lst)->next);
+    free((*lst)->content);
 	free(*lst);
 	*lst = NULL;
 }

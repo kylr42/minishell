@@ -21,7 +21,7 @@ static void ft_init_env(t_shell *shell, char *envp[])
 void ft_init(t_shell *shell, char *envp[])
 {
     shell->env = NULL;
-    shell->cmd = NULL;
+    shell->cmds = NULL;
     gethostname(shell->hostname, 6);
     shell->ps = ft_allocate(100);
     shell->buil_cmd = ft_split(BUIL_CMD, ':');

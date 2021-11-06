@@ -15,6 +15,7 @@ int ft_check_expand(char **str)
         return (1);
     }
     add_history(expansion);
+    free(*str);
     *str = ft_strdup(expansion);
     free(expansion);
     return (0);

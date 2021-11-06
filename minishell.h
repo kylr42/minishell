@@ -47,8 +47,8 @@
 typedef struct s_cmd
 {
     char			**arg;
-//    t_list			*lst_arg;
-//    t_list			*redirects;
+    t_list			*lst;
+    t_list			*redirects;
 //    int				pipe_fd[2];
 //    int				in;
 //    int				out;
@@ -60,14 +60,16 @@ typedef struct s_cmd
 typedef struct s_shell
 {
     char    *ps;
-    t_cmd   *cmd;
     t_list  *env;
+    t_cmd   *cmd;
+    t_cmd   *cmds;
+    int     cmd_status;
     char    **arr_env;
     char    **buil_cmd;
     char    hostname[7];
-    int     count_pipes;
 }	t_shell;
 
+int g_status;
 
 int		echo(char **str);
 int     ft_loop(t_shell *shell);
@@ -75,11 +77,21 @@ int     ft_skip_gap(const char *str);
 int     ft_parser(t_shell *shell, char *str);
 int     ft_raise_error(char *error, int code);
 
+char	*ft_lst_to_str(t_list *lst);
 char    **ft_lst_to_array(t_list *lst);
+char	*ft_get_key(bool digit, char *s, size_t *i);
+char	*get_value_from_envp(t_shell *shell, const char *key);
 
 void    *ft_allocate(size_t size);
+void	ft_split_free(char **arr);
 void    ft_init(t_shell *shell, char *envp[]);
+void	ft_cmd_add_back(t_cmd **lst, t_cmd *new);
+void	ft_envadd_back(t_list	**chars, char *env_val);
+void	ft_add_keyword(t_shell *shell, t_list **chars, bool is_redirect);
+void	insert_or_update_elem_from_envp(t_shell *shell, const char *keyval);
 
-
+t_cmd   *ft_allocate_cmd(void);
+size_t	ft_keylen(const char *keyval);
+t_list	*ft_lstpop_find(t_list **lst, const char *key);
 
 #endif //MINISHELL_H

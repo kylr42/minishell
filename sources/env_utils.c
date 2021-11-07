@@ -68,4 +68,3 @@ void	ft_update_el_env(t_shell *shell, const char *keyval)
     ft_split_free(shell->arr_env);
     shell->arr_env = ft_lst_to_array(shell->env);
 }
-

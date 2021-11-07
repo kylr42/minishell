@@ -7,6 +7,7 @@ int main(int argc, char *argv[], char *envp[])
     if (argc > 1)
         printf(MAG"Hello, %s! %s loading...\n"RESET, getenv("USER"), argv[0]);
     ft_init(&shell, envp);
+//    ft_signal_main();
     ft_loop(&shell);
 	return (0);
 }

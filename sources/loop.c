@@ -21,6 +21,17 @@ int ft_check_expand(char **str)
     return (0);
 }
 
+//void ft_run_commands(t_shell *shell)
+//{
+//    t_cmd *tmp;
+//
+//    tmp = shell->cmd;
+//    while (tmp && !g_status)
+//    {
+//        tmp->arg = ft_lst_to_array(tmp->lst);
+//    }
+//}
+
 int ft_loop(t_shell *shell)
 {
     char *str;
@@ -34,6 +45,8 @@ int ft_loop(t_shell *shell)
         if (*str)
             if (ft_check_expand(&str))
                 continue ;
-        ft_parser(shell, str);
+        if (!ft_parser(shell, str))
+//            ft_run_commands(shell);
+        free(str);
     }
 }

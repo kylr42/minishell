@@ -56,4 +56,3 @@ void	ft_add_keyword(t_shell *shell, t_list **chars, bool is_redirect)
     else
         ft_lstadd_front(&shell->cmd->lst, ft_lstnew(keyword));
 }
-

@@ -10,7 +10,7 @@ size_t	ft_keylen(const char *keyval)
     return (i);
 }
 
-char	*get_val_from_keyval(const char *keyval)
+char	*ft_get_val_env(const char *keyval)
 {
     size_t	len_key;
 
@@ -37,18 +37,18 @@ t_list	*ft_lstfind(t_list *lst, const char *key)
     return (lst);
 }
 
-char	*get_value_from_envp(t_shell *shell, const char *key)
+char	*ft_get_el_env(t_shell *shell, const char *key)
 {
     t_list	*res;
 
     res = ft_lstfind(shell->env, key);
     if (res)
-        return (get_val_from_keyval(res->content));
+        return (ft_get_val_env(res->content));
     else
         return (ft_strdup(""));
 }
 
-void	remove_elem_from_envp(t_shell *shell, const char *key)
+void	ft_delete_el_env(t_shell *shell, const char *key)
 {
     t_list	*res;
 
@@ -56,14 +56,14 @@ void	remove_elem_from_envp(t_shell *shell, const char *key)
     if (res)
     {
         ft_split_free(shell->arr_env);
-        free(res);
+        ft_lstclear(&res, free);
         shell->arr_env = ft_lst_to_array(shell->env);
     }
 }
 
-void	insert_or_update_elem_from_envp(t_shell *shell, const char *keyval)
+void	ft_update_el_env(t_shell *shell, const char *keyval)
 {
-    remove_elem_from_envp(shell, keyval);
+    ft_delete_el_env(shell, keyval);
     ft_lstadd_front(&shell->env, ft_lstnew(ft_strdup(keyval)));
     ft_split_free(shell->arr_env);
     shell->arr_env = ft_lst_to_array(shell->env);

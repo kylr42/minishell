@@ -17,7 +17,7 @@ char	*ft_get_key(bool digit, char *s, size_t *i)
     while (s[*i] && ft_isalnum(s[*i]) && !(ft_isalpha(s[*i]) && digit))
         ft_lstadd_back(&key_chars, ft_lstnew(ft_substr(s, (*i)++, 1)));
     key = ft_lst_to_str(key_chars);
-    ft_lstclear(&key_chars);
+    ft_lstclear(&key_chars, free);
     return (key);
 }
 
@@ -40,7 +40,7 @@ void	ft_add_keyword(t_shell *shell, t_list **chars, bool is_redirect)
     char	*msg;
 
     keyword = ft_lst_to_str(*chars);
-    ft_lstclear(chars);
+    ft_lstclear(chars, free);
     if (is_redirect)
     {
         if (ft_strlen(keyword) == 1

@@ -80,7 +80,7 @@ int     ft_raise_error(char *error, int code);
 char	*ft_lst_to_str(t_list *lst);
 char    **ft_lst_to_array(t_list *lst);
 char	*ft_get_key(bool digit, char *s, size_t *i);
-char	*get_value_from_envp(t_shell *shell, const char *key);
+char	*ft_get_el_env(t_shell *shell, const char *key);
 
 void    *ft_allocate(size_t size);
 void	ft_split_free(char **arr);
@@ -88,7 +88,8 @@ void    ft_init(t_shell *shell, char *envp[]);
 void	ft_cmd_add_back(t_cmd **lst, t_cmd *new);
 void	ft_envadd_back(t_list	**chars, char *env_val);
 void	ft_add_keyword(t_shell *shell, t_list **chars, bool is_redirect);
-void	insert_or_update_elem_from_envp(t_shell *shell, const char *keyval);
+void	ft_update_el_env(t_shell *shell, const char *keyval);
+
 
 t_cmd   *ft_allocate_cmd(void);
 size_t	ft_keylen(const char *keyval);

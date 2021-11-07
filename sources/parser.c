@@ -39,7 +39,7 @@ static char	*ft_parser_dollar(t_shell *shell, const char *s, size_t *i)
     if (ft_strchr(" <>|$'\"\n=", s[(*i)]))
         return (ft_strdup("$"));
     key = ft_get_key(ft_isdigit(s[*i]), (char *) s, i);
-    value = get_value_from_envp(shell, key);
+    value = ft_get_el_env(shell, key);
     free(key);
     return (value);
 }
@@ -63,7 +63,7 @@ static char	*ft_parser_gap(t_shell *shell, const char *s, size_t *i)
     if (s[*i])
         (*i)++;
     quote_str = ft_lst_to_str(chars);
-    ft_lstclear(&chars);
+    ft_lstclear(&chars, free);
     return (quote_str);
 }
 
@@ -128,7 +128,7 @@ int ft_parser(t_shell *shell, char *str)
     if (!g_status && shell->cmd && shell->cmd->lst)
     {
         keyval = ft_strjoin("_=", shell->cmd->lst->content);
-        insert_or_update_elem_from_envp(shell, keyval);
+        ft_update_el_env(shell, keyval);
         free(keyval);
     }
     return (g_status);

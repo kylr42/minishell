@@ -1,6 +1,6 @@
-#include "../minishell.h"
+#include "minishell.h"
 
-int ft_check_expand(char **str)
+static int ft_check_expand(char **str)
 {
     int result;
     char *expansion;
@@ -21,16 +21,32 @@ int ft_check_expand(char **str)
     return (0);
 }
 
-//void ft_run_commands(t_shell *shell)
-//{
-//    t_cmd *tmp;
-//
-//    tmp = shell->cmd;
-//    while (tmp && !g_status)
-//    {
-//        tmp->arg = ft_lst_to_array(tmp->lst);
-//    }
-//}
+static void	ft_lstclear_cmds(t_cmd **cmd)
+{
+    t_cmd	*next;
+
+    while (*cmd)
+    {
+        next = (*cmd)->next;
+        ft_lstclear(&(*cmd)->lst, free);
+        ft_lstclear(&(*cmd)->redirects, free);
+        if ((*cmd)->arg)
+            ft_split_free((*cmd)->arg);
+        (*cmd)->arg = NULL;
+        free(*cmd);
+        *cmd = next;
+    }
+}
+
+static void	ft_clean(t_shell *shell, char *str)
+{
+    if (shell->cmds)
+        ft_lstclear_cmds(&shell->cmds);
+    if (ft_strlen(str))
+        shell->cmd_status = g_status;
+    g_status = 0;
+    free(str);
+}
 
 int ft_loop(t_shell *shell)
 {
@@ -40,13 +56,17 @@ int ft_loop(t_shell *shell)
     while (true)
     {
         str = readline(shell->ps);
+        if (g_status == 130)
+        {
+            shell->cmd_status = 1;
+            g_status = 0;
+        }
         if (!str)
             str = ft_strdup("exit");
-        if (*str)
-            if (ft_check_expand(&str))
-                continue ;
+        else if (ft_check_expand(&str))
+            continue ;
         if (!ft_parser(shell, str))
-//            ft_run_commands(shell);
-        free(str);
+            ft_run_pipes(shell);
+        ft_clean(shell, str);
     }
 }

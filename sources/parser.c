@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 
 static void ft_parser_pipes(char *str)
 {
@@ -9,7 +9,7 @@ static void ft_parser_pipes(char *str)
     while (*str && g_status == 0)
     {
         if (*str == '|' && !b_words)
-            ft_raise_error(ERR_PIPE, 258);
+            ft_raise_error_n(ERR_PIPE, 258);
         if (*str == '|')
         {
             b_pipe = true;
@@ -22,7 +22,7 @@ static void ft_parser_pipes(char *str)
         str++;
     }
     if ((b_pipe && !b_words) && g_status == 0)
-        ft_raise_error(ERR_NEWL, 258);
+        ft_raise_error_n(ERR_NEWL, 258);
 }
 
 static char	*ft_parser_dollar(t_shell *shell, const char *s, size_t *i)
@@ -43,7 +43,6 @@ static char	*ft_parser_dollar(t_shell *shell, const char *s, size_t *i)
     free(key);
     return (value);
 }
-
 
 static char	*ft_parser_gap(t_shell *shell, const char *s, size_t *i)
 {
@@ -66,7 +65,6 @@ static char	*ft_parser_gap(t_shell *shell, const char *s, size_t *i)
     ft_lstclear(&chars, free);
     return (quote_str);
 }
-
 
 static void	ft_parser_word(t_shell *shell, const char *str, size_t *i)
 {
@@ -120,7 +118,6 @@ int ft_parser(t_shell *shell, char *str)
 {
     char	*keyval;
 
-    g_status = 0;
     ft_parser_pipes(str);
     if (g_status != 0)
         return (1);

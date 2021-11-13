@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 
 static void ft_init_env(t_shell *shell, char *envp[])
 {
@@ -18,20 +18,25 @@ static void ft_init_env(t_shell *shell, char *envp[])
     free(tmp);
 }
 
+
 void ft_init(t_shell *shell, char *envp[])
 {
+    g_status = 0;
+    rl_outstream = stderr;
     shell->env = NULL;
     shell->cmds = NULL;
+    shell->arr_env = NULL;
+    shell->ps = ft_allocate(100);
+    shell->buil_cmd = ft_split(BUIL_CMD, ':');
+    ft_init_ps(shell);
+    ft_init_env(shell, envp);
+    ft_copy_std_io(shell);
+    ft_restore_std_io(shell);
     printf(MAG"                                                \n"
            "      _/_/_/  _/    _/  _/_/_/_/  _/        _/     \n"
            "   _/        _/    _/  _/        _/        _/      \n"
            "    _/_/    _/_/_/_/  _/_/_/    _/        _/       \n"
            "       _/  _/    _/  _/        _/        _/        \n"
            "_/_/_/    _/    _/  _/_/_/_/  _/_/_/_/  _/_/_/_/   \n"
-           "                                                   \n");
-    gethostname(shell->hostname, 6);
-    shell->ps = ft_allocate(100);
-    shell->buil_cmd = ft_split(BUIL_CMD, ':');
-    sprintf(shell->ps, GRN"%s@%s:-$ "RESET, getenv("USER"), shell->hostname);
-    ft_init_env(shell, envp);
+           "                                                   \n"RESET);
 }

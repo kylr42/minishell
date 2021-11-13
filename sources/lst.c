@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 
 char **ft_lst_to_array(t_list *lst)
 {

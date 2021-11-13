@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 
 void	ft_envadd_back(t_list	**chars, char *env_val)
 {
@@ -31,7 +31,8 @@ int     ft_skip_gap(const char *str)
     while (str[++i])
         if (str[i] == c)
             return (i);
-    return (ft_raise_error(ERR_NEWL, 258));
+    ft_raise_error_n(ERR_NEWL, 258);
+    return (-1);
 }
 
 void	ft_add_keyword(t_shell *shell, t_list **chars, bool is_redirect)

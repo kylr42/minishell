@@ -73,6 +73,8 @@ void	ft_run_builtin(t_shell *shell, t_cmd *cmd, char *name)
 		g_status = ft_env(shell);
 	else if (!ft_strncmp(name, "exit", ft_strlen(name)))
 		g_status = ft_exit(cmd->arg, shell);
+	else if (!ft_strncmp(name, "help", ft_strlen(name)))
+		g_status = ft_help(shell, -1);
 	else
 		ft_putendl_fd("Impossible!", 2);
 }

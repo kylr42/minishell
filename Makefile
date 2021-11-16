@@ -13,7 +13,7 @@ LIB_DIR = ./libft/
 LIBFT = ${LIB_DIR}libft.a
 
 SRCS_FILES = builtins/env.c builtins/exit.c builtins/echo.c builtins/pwd.c builtins/cd.c builtins/cd_utils.c \
-			builtins/unset.c builtins/export.c builtins/export_print.c builtins/export_utils.c \
+			builtins/unset.c builtins/export.c builtins/export_print.c builtins/export_utils.c builtins/help.c\
 			dups.c env_utils.c init.c errors.c loop.c redirects.c  \
 			lst.c parser.c parser_utils.c pipes_utils.c pipes.c utils.c signals.c
 

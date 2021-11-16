@@ -26,7 +26,7 @@
 # define RESET "\x1B[0m"
 
 // BUILTINS
-# define BUIL_CMD   "cd:echo:env:exit:pwd:unset:export"
+# define BUIL_CMD   "cd:echo:env:exit:pwd:unset:export:help"
 
 // ERRORS
 # define ERR_PIPE	"shell: Syntax error near unexpected token '|'"

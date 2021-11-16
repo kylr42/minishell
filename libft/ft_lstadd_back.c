@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsiona <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 08:15:27 by jsiona            #+#    #+#             */
+/*   Updated: 2021/11/16 08:15:28 by jsiona           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
@@ -5,5 +17,5 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	if (!*lst)
 		*lst = new;
 	else
-        ft_lstlast(*lst)->next = new;
+		ft_lstlast(*lst)->next = new;
 }

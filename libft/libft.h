@@ -18,7 +18,7 @@
 
 typedef struct s_list
 {
-	char            *content;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
 
@@ -33,6 +33,7 @@ int		ft_atoi(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
+void	ft_split_free(char **arr);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_bzero(void *s, size_t n);
 void	ft_putchar_fd(char c, int fd);
@@ -40,9 +41,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memchr(const void *arr, int c, size_t n);
-void	*ft_memset (void *destination, int c, size_t n);
+void	*ft_memset(void *destination, int c, size_t n);
 void	*ft_memcpy(void *dest, const void *source, size_t count);
-void	*ft_memmove (void *destination, const void *source, size_t n);
+void	*ft_memmove(void *destination, const void *source, size_t n);
 void	*ft_memccpy(void *dest, const void *source, int ch, size_t count);
 
 char	*ft_itoa(int n);

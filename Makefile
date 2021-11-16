@@ -12,8 +12,9 @@ READ_INC = ~/.brew/opt/readline/include/readline/
 LIB_DIR = ./libft/
 LIBFT = ${LIB_DIR}libft.a
 
-SRCS_FILES = dups.c env_utils.c init.c errors.c loop.c redirects.c builtins/exit.c \
-             lst.c parser.c parser_utils.c pipes_utils.c pipes.c utils.c signals.c
+SRCS_FILES = builtins/env.c builtins/exit.c builtins/echo.c \
+			dups.c env_utils.c init.c errors.c loop.c redirects.c  \
+			lst.c parser.c parser_utils.c pipes_utils.c pipes.c utils.c signals.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
@@ -22,8 +23,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
 all: ${NAME}
 
 $(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR)builtins
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)builtins $(OBJS_DIR)
 
 ${LIBFT}:
 	@make -C $(LIB_DIR)
@@ -39,12 +39,12 @@ ${NAME}: $(LIBFT) $(OBJS_DIR) $(OBJS) $(SRCS) main.c
 clean:
 	@rm -rf $(OBJS_DIR)
 	@make clean -C $(LIB_DIR)
-	@printf '🚀\033[1;35mDelete objects success!\n\033[0m'
+	@printf '\033[1;35mDelete objects success!\n\033[0m'
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
 	@rm -rf ${NAME}
-	@printf '\033[1;35mDelete ${NAME} 🚀success!\n\033[0m'
+	@printf '\033[1;35mDelete ${NAME} success!\n\033[0m'
 
 re: fclean all
 

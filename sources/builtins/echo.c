@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		echo(char **str)
+int		ft_echo(char **str)
 {
     int     i;
     bool    display_return;

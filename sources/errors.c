@@ -38,9 +38,3 @@ void	ft_raise_error_n(char *error_msg, int code)
     ft_put_error(error_msg);
     g_status = code;
 }
-
-int	print_errno(void)
-{
-    ft_put_error(strerror(errno));
-    return (1);
-}

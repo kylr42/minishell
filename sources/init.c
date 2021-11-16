@@ -18,7 +18,6 @@ static void ft_init_env(t_shell *shell, char *envp[])
     free(tmp);
 }
 
-
 void ft_init(t_shell *shell, char *envp[])
 {
     g_status = 0;
@@ -32,11 +31,11 @@ void ft_init(t_shell *shell, char *envp[])
     ft_init_env(shell, envp);
     ft_copy_std_io(shell);
     ft_restore_std_io(shell);
-    printf(MAG"                                                \n"
+    ft_putstr_fd(MAG"                                                \n"
            "      _/_/_/  _/    _/  _/_/_/_/  _/        _/     \n"
            "   _/        _/    _/  _/        _/        _/      \n"
            "    _/_/    _/_/_/_/  _/_/_/    _/        _/       \n"
            "       _/  _/    _/  _/        _/        _/        \n"
            "_/_/_/    _/    _/  _/_/_/_/  _/_/_/_/  _/_/_/_/   \n"
-           "                                                   \n"RESET);
+           "                                                   \n"RESET, 2);
 }

@@ -2,16 +2,20 @@
 
 void ft_run_cmd(t_shell *shell, t_cmd *cmd)
 {
+    int z;
     char **paths;
     char *cmd_name;
 
     if (!cmd->arg)
         exit (0);
+    z = 0;
     paths = ft_get_paths(shell);
     cmd_name = cmd->arg[0];
-    while (gen_next_path(cmd->arg, paths, cmd_name))
+    while (ft_gen_next_path(cmd->arg, paths, cmd_name, &z))
     {
         execve(cmd->arg[0], cmd->arg, shell->arr_env);
+        if (errno == ENOEXEC)
+            exit(0);
         if (errno != 2)
             ft_critical_error(0, cmd_name, 0);
     }

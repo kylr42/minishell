@@ -12,4 +12,4 @@ FILE(GLOB SOURCE sources/*.c)
 FILE(GLOB BUILTINS sources/builtins/*.c)
 
 
-add_executable(minishell includes/minishell.h ${LIBFT} ${SOURCE} ${BUILTINS} main.c )
+add_executable(minishell includes/minishell.h ${LIBFT} ${SOURCE} ${BUILTINS} main.c includes/builtins.h includes/includes.h includes/parser.h includes/logic.h)

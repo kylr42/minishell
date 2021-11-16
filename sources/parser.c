@@ -100,16 +100,18 @@ static void    ft_parser_words(t_shell *shell, const char *str)
 
     i = 0;
     shell->cmd = ft_allocate_cmd();
-    while (str[i])
+    while (str[i] && !g_status)
     {
-        if (!ft_strchr(" \t\v", str[i]) && str[i] != '|')
-            ft_parser_word(shell, str, &i);
         if (str[i] == '|')
         {
             ft_cmd_add_back(&shell->cmds, shell->cmd);
             shell->cmd = ft_allocate_cmd();
+            i++;
         }
-        i++;
+        else if (!ft_strchr(" \t\v", str[i]) && str[i] != '|')
+            ft_parser_word(shell, str, &i);
+        else
+            i++;
     }
     ft_cmd_add_back(&shell->cmds, shell->cmd);
 }

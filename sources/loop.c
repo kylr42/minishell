@@ -1,52 +1,83 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsiona <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 07:41:07 by jsiona            #+#    #+#             */
+/*   Updated: 2021/11/16 07:41:09 by jsiona           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_check_expand(char **str)
+#include "minishell.h"
+
+static int	ft_check_expand(char **str)
 {
-    int result;
-    char *expansion;
+	int		result;
+	char	*expansion;
 
-
-    result = history_expand(*str, &expansion);
-    if (result)
-        ft_putendl_fd(expansion, 1);
-    if (result < 0 || result == 2)
-    {
-        free(expansion);
-        return (1);
-    }
-    add_history(expansion);
-    free(*str);
-    *str = ft_strdup(expansion);
-    free(expansion);
-    return (0);
+	result = history_expand(*str, &expansion);
+	if (result)
+		ft_putendl_fd(expansion, 1);
+	if (result < 0 || result == 2)
+	{
+		free(expansion);
+		return (1);
+	}
+	add_history(expansion);
+	free(*str);
+	*str = ft_strdup(expansion);
+	free(expansion);
+	return (0);
 }
 
-//void ft_run_commands(t_shell *shell)
-//{
-//    t_cmd *tmp;
-//
-//    tmp = shell->cmd;
-//    while (tmp && !g_status)
-//    {
-//        tmp->arg = ft_lst_to_array(tmp->lst);
-//    }
-//}
-
-int ft_loop(t_shell *shell)
+static void	ft_lstclear_cmds(t_cmd **cmd)
 {
-    char *str;
+	t_cmd	*next;
 
-    using_history();
-    while (true)
-    {
-        str = readline(shell->ps);
-        if (!str)
-            str = ft_strdup("exit");
-        if (*str)
-            if (ft_check_expand(&str))
-                continue ;
-        if (!ft_parser(shell, str))
-//            ft_run_commands(shell);
-        free(str);
-    }
+	while (*cmd)
+	{
+		next = (*cmd)->next;
+		ft_lstclear(&(*cmd)->lst, free);
+		ft_lstclear(&(*cmd)->redirects, free);
+		if ((*cmd)->arg)
+			ft_split_free((*cmd)->arg);
+		(*cmd)->arg = NULL;
+		free(*cmd);
+		*cmd = next;
+	}
+}
+
+static void	ft_clean(t_shell *shell, char *str)
+{
+	if (shell->cmds)
+		ft_lstclear_cmds(&shell->cmds);
+	if (ft_strlen(str))
+		shell->cmd_status = g_status;
+	g_status = 0;
+	free(str);
+}
+
+int	ft_loop(t_shell *shell)
+{
+	char	*str;
+
+	using_history();
+	while (true)
+	{
+		str = readline(shell->ps);
+		if (g_status == 130)
+		{
+			shell->cmd_status = 1;
+			g_status = 0;
+		}
+		if (!str)
+			str = ft_strdup("exit");
+		else if (ft_check_expand(&str))
+			continue ;
+		if (!ft_parser(shell, str))
+			ft_run_pipes(shell);
+		ft_clean(shell, str);
+	}
 }

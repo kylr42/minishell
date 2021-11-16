@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	chdir_error(char *dir)
+int	ft_chdir_error(char *dir)
 {
 	ft_putstr_fd("shell: cd: ", 2);
 	ft_putstr_fd(dir, 2);
@@ -20,7 +20,7 @@ int	chdir_error(char *dir)
 	return (ft_print_errno());
 }
 
-int	set_new_oldpwd(char *pwd_old, t_shell *shell)
+int	ft_set_new_oldpwd(char *pwd_old, t_shell *shell)
 {
 	char	*pwd;
 
@@ -30,7 +30,7 @@ int	set_new_oldpwd(char *pwd_old, t_shell *shell)
 	return (0);
 }
 
-int	set_new_pwd(t_shell *shell)
+int	ft_set_new_pwd(t_shell *shell)
 {
 	char	*new_pwd;
 	char	*tmp;

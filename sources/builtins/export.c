@@ -12,42 +12,38 @@
 
 #include "minishell.h"
 
-static int	check_export(char *exp)
+static bool	ft_isexport(char *exp)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (exp[0] == '=' || ft_isdigit(exp[0]) || !ft_isalpha(exp[0]))
-		return (ft_write_error_export(exp));
-	while (exp[i] && exp[i] != '=')
-	{
+		return (ft_export_error(exp));
+	while (exp[++i] && exp[i] != '=')
 		if (!ft_isalpha(exp[i]) && !ft_isdigit(exp[i]))
-			return (ft_write_error_export(exp));
-		i++;
-	}
-	return (0);
+			return (ft_export_error(exp));
+	return (false);
 }
 
 int	ft_export(char **argv, t_shell *shell)
 {
-	int	i;
-	int	ret_vel;
+	size_t	i;
+	bool	ret_vel;
 
-	i = 1;
-	ret_vel = 0;
+	i = 0;
+	ret_vel = false;
 	if (ft_split_len(argv) == 1)
 	{
-		sort_the_env(shell, ft_split_len(shell->arr_env));
+		ft_sort_env(shell, ft_split_len(shell->arr_env));
 		print_export(shell->arr_env);
 		return (ret_vel);
 	}
-	while (argv[i])
+	while (argv[++i])
 	{
-		if (!check_export(argv[i]))
+		if (!ft_isexport(argv[i]))
 			ft_update_el_env(shell, argv[i]);
 		else
-			ret_vel = 1;
-		i++;
+			ret_vel = true;
 	}
 	return (ret_vel);
 }

@@ -24,7 +24,7 @@ static void	ft_put_str_until_chr(char *str)
 	}
 }
 
-static void	ft_put_str_after_chr(char *str)
+static void	ft_putstr_after_eq(char *str)
 {
 	int	i;
 
@@ -42,19 +42,17 @@ void	print_export(char **env)
 {
 	int	i;
 
-	i = 0;
-	while (env[i])
+	i = -1;
+	while (env[++i])
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_put_str_until_chr(env[i]);
 		if (ft_strrchr(env[i], '='))
 		{
-			write(1, "=", 1);
-			write(1, "\"", 1);
-			ft_put_str_after_chr(env[i]);
+			write(1, "=\"", 2);
+			ft_putstr_after_eq(env[i]);
 			write(1, "\"", 1);
 		}
 		write(1, "\n", 1);
-		i++;
 	}
 }

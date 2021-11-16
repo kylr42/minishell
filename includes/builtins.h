@@ -24,14 +24,15 @@ int		ft_unset(char **argv, t_shell *shell);
 int		ft_export(char **argv, t_shell *shell);
 
 // EXPORT_UTILS
-int		ft_write_error_export(char *exp);
+int		ft_export_error(char *exp);
 
 void	print_export(char **env);
-void	sort_the_env(t_shell *shell, int len_env);
+void	ft_sort_env(t_shell *shell, int len_env);
 
 // CD_UTILS
-int		chdir_error(char *dir);
-int		set_new_pwd(t_shell *shell);
-int		set_new_oldpwd(char *pwd_old, t_shell *shell);
+
+int		ft_chdir_error(char *dir);
+int		ft_set_new_pwd(t_shell *shell);
+int		ft_set_new_oldpwd(char *pwd_old, t_shell *shell);
 
 #endif //BUILTINS_H

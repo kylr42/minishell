@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-int	ft_write_error_export(char *exp)
+int	ft_export_error(char *exp)
 {
-	write(2, "export: '", 10);
-	write(2, exp, ft_strlen(exp));
-	write(2, "': not a valid identifier\n", 26);
+	ft_putstr_fd(RED"export: '", 2);
+	ft_putstr_fd(exp, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 	return (1);
 }
 
-static int	my_str_cmp(void *s1, void *s2)
+static int	ft_custom_strcmp(void *s1, void *s2)
 {
 	char	*one;
 	char	*two;
@@ -36,26 +36,24 @@ static int	my_str_cmp(void *s1, void *s2)
 	return (one[i] - two[i]);
 }
 
-void	sort_the_env(t_shell *shell, int len_env)
+void	ft_sort_env(t_shell *shell, int len_env)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
-	i = 0;
-	while (i < len_env)
+	i = -1;
+	while (++i < len_env)
 	{
-		j = 0;
-		while (j < len_env - 1)
+		j = -1;
+		while (++j < len_env - 1)
 		{
-			if (my_str_cmp(shell->arr_env[j], shell->arr_env[j + 1]) > 0)
+			if (ft_custom_strcmp(shell->arr_env[j], shell->arr_env[j + 1]) > 0)
 			{
 				tmp = shell->arr_env[j];
 				shell->arr_env[j] = shell->arr_env[j + 1];
 				shell->arr_env[j + 1] = tmp;
 			}
-			j++;
 		}
-		i++;
 	}
 }

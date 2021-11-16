@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-int	help_change_dir(char *oldpwd, char *dir, t_shell *shell)
+int	ft_change_dir_utils(char *oldpwd, char *dir, t_shell *shell)
 {
 	if (chdir(dir) == -1)
-		return (chdir_error(dir));
+		return (ft_chdir_error(dir));
 	if (oldpwd)
-		if (set_new_oldpwd(oldpwd, shell) != 0)
+		if (ft_set_new_oldpwd(oldpwd, shell) != 0)
 			return (ft_print_errno());
-	if (set_new_pwd(shell) != 0)
+	if (ft_set_new_pwd(shell) != 0)
 		return (ft_print_errno());
 	return (0);
 }
 
-int	change_dir(char *dir, t_shell *shell)
+int	ft_change_dir(char *dir, t_shell *shell)
 {
 	char	*oldpwd;
 	char	*tmp;
@@ -34,12 +34,12 @@ int	change_dir(char *dir, t_shell *shell)
 	if (!tmp)
 		ft_print_errno();
 	oldpwd = getcwd(tmp, 1024);
-	ret_v = help_change_dir(oldpwd, dir, shell);
+	ret_v = ft_change_dir_utils(oldpwd, dir, shell);
 	free(tmp);
 	return (ret_v);
 }
 
-int	cd_to_oldpwd(t_shell *shell)
+int	ft_cd_to_oldpwd(t_shell *shell)
 {
 	char	*oldpwd;
 	int		r_vel;
@@ -50,31 +50,31 @@ int	cd_to_oldpwd(t_shell *shell)
 		ft_putstr_fd(RED"shell: cd : HOME not set \n"RESET, 2);
 		return (1);
 	}
-	r_vel = change_dir(oldpwd, shell);
+	r_vel = ft_change_dir(oldpwd, shell);
 	free(oldpwd);
 	return (r_vel);
 }
 
-int	change_work_dir(char **argv, t_shell *shell)
+static int	ft_cd_work(char **argv, t_shell *shell)
 {
 	int		i;
 	char	*tmp;
 	char	*home;
 
 	if (!ft_strncmp(argv[1], "-", 1))
-		return (cd_to_oldpwd(shell));
+		return (ft_cd_to_oldpwd(shell));
 	if (!ft_strncmp(argv[1], "~", 1)
 		&& (argv[1][1] == '\0' || argv[1][1] == '/'))
 	{
 		home = ft_get_el_env(shell, "HOME");
 		tmp = ft_strjoin(home, &argv[1][1]);
 		free(home);
-		i = change_dir(tmp, shell);
+		i = ft_change_dir(tmp, shell);
 		free(tmp);
 		return (i);
 	}
 	else
-		return (change_dir(argv[1], shell));
+		return (ft_change_dir(argv[1], shell));
 }
 
 int	ft_cd(char **argv, t_shell *shell)
@@ -96,11 +96,11 @@ int	ft_cd(char **argv, t_shell *shell)
 			free(home);
 			return (1);
 		}
-		r_vel = change_dir(home, shell);
+		r_vel = ft_change_dir(home, shell);
 		free(home);
 		return (r_vel);
 	}
 	if (ft_split_len(argv) == 2)
-		return (change_work_dir(argv, shell));
+		return (ft_cd_work(argv, shell));
 	return (0);
 }

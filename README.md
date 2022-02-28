@@ -14,6 +14,7 @@ synchronisation using the C programmming language.
 The only requirements are:
 - GNU make (v3.81)
 - GCC (v4.2.1)
+- Readline (v6.1)
 
 Those versions are the ones used during development.
 
@@ -22,7 +23,11 @@ Those versions are the ones used during development.
 1. Download/Clone this repo
 
         git clone https://github.com/kylr42/minishell
-2. `cd` into the root directory and run `make`
+2. Install the requirements
+
+        curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+        brew install readline
+3. `cd` into the root directory and run `make`
 
         cd minishell
         make
